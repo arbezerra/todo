@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  front:
+    build: ./FRONT
+    ports:
+      - "3000:3000"
+  back:
+    build: ./BACK
+    env_file:
+      - ./BACK/.env
+    ports:
+      - "5000:5000"

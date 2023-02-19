@@ -1,0 +1,26 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
+      PASSWORD: ${{secrets.PASSWORD}}
+    defaults:
+      run:
+        working-directory: BACK
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        cache: 'yarn'
+        cache-dependency-path: "./BACK/yarn.lock"
+    - name: Install modules
+      run: yarn
+    - name: Run tests
+      run: yarn test
